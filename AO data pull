@@ -1,3 +1,15 @@
-fid = fopen('measured_parameter_ARGOS_AO_1.csv');
-for i = 2:71
-tline = fgetl(fid)
+fid = fopen('measured_parameter_ARGOS_AO_11.csv');
+for i = 1:70
+tline = fgetl(fid);
+
+idx_11 = find(tline==',',5);
+
+% gets lon
+aolonstr = tline(idx_11(3)+1 : idx_11(4)-1);
+aolonbig(i) = str2num(aolonstr);
+
+ % gets lat
+aolatstr = tline(idx_11(4)+1 : idx_11(5)-1);
+aolatbig(i) = str2num(aolatstr);
+
+end

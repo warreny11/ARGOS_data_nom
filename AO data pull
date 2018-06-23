@@ -1,0 +1,3 @@
+fid = fopen('measured_parameter_ARGOS_AO_1.csv');
+for i = 2:71
+tline = fgetl(fid)

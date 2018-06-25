@@ -2,7 +2,9 @@ fullURLmetadata = ['ftp://usgodae.org/pub/outgoing/argo/ar_index_global_meta.txt
 fumd = urlread(fullURLmetadata);
 % takes the data from the metadata txt online and turns it to str (a BIG string)
 % note : may be able to use the institution names to break data into lines
+fumdsize = size(fullURLmetadata); %gives two doubles: 1 and end num
 
+%% finds institution names in char array
 a = strfind(str, 'aoml');
 b = strfind(str, 'bodc');
 c = strfind(str, 'coriolis');
@@ -15,6 +17,7 @@ i = strfind(str, 'kordi');
 j = strfind(str, 'meds');
 k = strfind(str, 'nmdis');
 
+%% finds size of char arrays of respective institutions
 asize = size(a);
 bsize = size(b);
 csize = size(c);
@@ -27,15 +30,30 @@ isize = size(i);
 jsize = size(j);
 ksize = size(k);
 
-alinecharnum = a(2) - a(1);
-for i = 1:asize(2) 
-aomlmd = fumd(a(i))
-end
+%% finds length of the last line of chars of given institution's floats
+a_b = b(1) - a(asize(2)) - 1;
+b_c = c(1) - b(bsize(2)) - 1;
+c_d = d(1) - c(bsize(2)) - 1;
+d_e = e(1) - d(bsize(2)) - 1;
+e_f = f(1) - e(bsize(2)) - 1;
+f_g = g(1) - f(bsize(2)) - 1;
+g_h = h(1) - g(bsize(2)) - 1;
+h_i = i(1) - h(bsize(2)) - 1;
+i_j = j(1) - i(bsize(2)) - 1;
+j_k = k(1) - j(bsize(2)) - 1;
+k_end = fumdsize(2) - k(bsize(2)) - 1;
 
-fumdsize = size(fullURLmetadata); %gives two doubles: 1 and end num
+%% puts data into vars
+aomlmd = fumd(a(1) : a(asize(2)) + a_b);
+bodcmd = fumd(b(1) : b(bsize(2)) + b_c);
+crlsmd = fumd(c(1) : c(csize(2)) + c_d);
+csiomd = fumd(d(1) : d(dsize(2)) + d_e);
+csiromd = fumd(e(1) : e(esize(2)) + e_f);
+incsmd = fumd(f(1) : f(fsize(2)) + f_g);
+jmamd = fumd(g(1) : g(gsize(2)) + g_h);
+kmamd = fumd(h(1) : h(hsize(2)) + h_i);
+kordimd = fumd(i(1) : i(isize(2)) + i_j);
+medsmd = fumd(j(1) : j(jsize(2)) + j_k);
+nmdsmd = fumd(k(1) : k(ksize(2)) + k_end);
 
-
-for i = 1:fumdsize(2)
-aomlmd = fumd(a(1) : a(
-  end 
- end
+%%it's a lot of code, working on simpler version with for loop

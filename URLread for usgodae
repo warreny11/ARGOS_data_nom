@@ -1,0 +1,4 @@
+fullURLmetadata = ['ftp://usgodae.org/pub/outgoing/argo/ar_index_global_meta.txt'];
+str = urlread(fullURLmetadata);
+% takes the data from the metadata txt online and turns it to str (a BIG string)
+% note : may be able to use the institution names to break data into lines

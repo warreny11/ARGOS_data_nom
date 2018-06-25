@@ -5,17 +5,17 @@ fumd = urlread(fullURLmetadata);
 fumdsize = size(fullURLmetadata); %gives two doubles: 1 and end num
 
 %% finds institution names in char array
-a = strfind(str, 'aoml');
-b = strfind(str, 'bodc');
-c = strfind(str, 'coriolis');
-d = strfind(str, 'csio');
-e = strfind(str, 'csiro');
-f = strfind(str, 'incois');
-g = strfind(str, 'jma');
-h = strfind(str, 'kma');
-i = strfind(str, 'kordi');
-j = strfind(str, 'meds');
-k = strfind(str, 'nmdis');
+a = strfind(fumd, 'aoml');
+b = strfind(fumd, 'bodc');
+c = strfind(fumd, 'coriolis');
+d = strfind(fumd, 'csio');
+e = strfind(fumd, 'csiro');
+f = strfind(fumd, 'incois');
+g = strfind(fumd, 'jma');
+h = strfind(fumd, 'kma');
+i = strfind(fumd, 'kordi');
+j = strfind(fumd, 'meds');
+k = strfind(fumd, 'nmdis');
 
 %% finds size of char arrays of respective institutions
 asize = size(a);

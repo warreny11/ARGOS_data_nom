@@ -1,0 +1,59 @@
+fullURL = ['ftp://ftp.ifremer.fr/ifremer/argo/ar_index_global_prof.txt'];
+data = urlread(fullURLmetadata);
+% takes the data from the metadata txt online and turns it to str (a BIG string)
+% note : may be able to use the institution names to break data into lines
+datasize = size(fullURL); %gives two doubles: 1 and end num
+
+%% finds institution names in char array
+a = strfind(data, 'aoml');
+b = strfind(data, 'bodc');
+c = strfind(data, 'coriolis');
+d = strfind(data, 'csio');
+e = strfind(data, 'csiro');
+f = strfind(data, 'incois');
+g = strfind(data, 'jma');
+h = strfind(data, 'kma');
+i = strfind(data, 'kordi');
+j = strfind(data, 'meds');
+k = strfind(data, 'nmdis');
+
+%% finds size of char arrays of respective institutions
+asize = size(a);
+bsize = size(b);
+csize = size(c);
+dsize = size(d);
+esize = size(e);
+fsize = size(f);
+gsize = size(g);
+hsize = size(h);
+isize = size(i);
+jsize = size(j);
+ksize = size(k);
+
+%% finds length of the last line of chars of given institution's floats
+a_b = b(1) - a(asize(2)) - 1;
+b_c = c(1) - b(bsize(2)) - 1;
+c_d = d(1) - c(csize(2)) - 1;
+d_e = e(1) - d(dsize(2)) - 1;
+e_f = f(1) - e(esize(2)) - 1;
+f_g = g(1) - f(fsize(2)) - 1;
+g_h = h(1) - g(gsize(2)) - 1;
+h_i = i(1) - h(hsize(2)) - 1;
+i_j = j(1) - i(isize(2)) - 1;
+j_k = k(1) - j(jsize(2)) - 1;
+k_end = datasize(2) - k(ksize(2)) - 1;
+
+%% puts data into vars
+aomlmd = data(a(1) : a(asize(2)) + a_b);
+bodcmd = data(b(1) : b(bsize(2)) + b_c);
+crlsmd = data(c(1) : c(csize(2)) + c_d);
+csiomd = data(d(1) : d(dsize(2)) + d_e);
+csiromd = data(e(1) : e(esize(2)) + e_f);
+incsmd = data(f(1) : f(fsize(2)) + f_g);
+jmamd = data(g(1) : g(gsize(2)) + g_h);
+kmamd = data(h(1) : h(hsize(2)) + h_i);
+kordimd = data(i(1) : i(isize(2)) + i_j);
+medsmd = data(j(1) : j(jsize(2)) + j_k);
+nmdsmd = data(k(1) : k(ksize(2)) + k_end);
+
+%%it's a lot of code, working on simpler version with for loop

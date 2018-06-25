@@ -33,15 +33,15 @@ ksize = size(k);
 %% finds length of the last line of chars of given institution's floats
 a_b = b(1) - a(asize(2)) - 1;
 b_c = c(1) - b(bsize(2)) - 1;
-c_d = d(1) - c(bsize(2)) - 1;
-d_e = e(1) - d(bsize(2)) - 1;
-e_f = f(1) - e(bsize(2)) - 1;
-f_g = g(1) - f(bsize(2)) - 1;
-g_h = h(1) - g(bsize(2)) - 1;
-h_i = i(1) - h(bsize(2)) - 1;
-i_j = j(1) - i(bsize(2)) - 1;
-j_k = k(1) - j(bsize(2)) - 1;
-k_end = fumdsize(2) - k(bsize(2)) - 1;
+c_d = d(1) - c(csize(2)) - 1;
+d_e = e(1) - d(dsize(2)) - 1;
+e_f = f(1) - e(esize(2)) - 1;
+f_g = g(1) - f(fsize(2)) - 1;
+g_h = h(1) - g(gsize(2)) - 1;
+h_i = i(1) - h(hsize(2)) - 1;
+i_j = j(1) - i(isize(2)) - 1;
+j_k = k(1) - j(jsize(2)) - 1;
+k_end = fumdsize(2) - k(ksize(2)) - 1;
 
 %% puts data into vars
 aomlmd = fumd(a(1) : a(asize(2)) + a_b);

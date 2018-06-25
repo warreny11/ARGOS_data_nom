@@ -11,15 +11,14 @@ e = strfind(str, 'csiro');
 f = strfind(str, 'incois');
 g = strfind(str, 'jma');
 h = strfind(str, 'kma');
-i = strfind(str, 'kordi);
+i = strfind(str, 'kordi');
 j = strfind(str, 'meds');
 k = strfind(str, 'nmdis');
 
 fumdsize = size(fullURLmetadata); %gives two doubles: 1 and end num
-asize = size(a);
 
 for i = 1:fumdsize(2)
-for i1 = 1:asize(2)
+
     fumdnwln = [fullURLmetadata(1:) char newline fullURLmetadata(i:fumdsize(2))]
   end 
  end

@@ -1,5 +1,5 @@
 fullURLmetadata = ['ftp://usgodae.org/pub/outgoing/argo/ar_index_global_meta.txt'];
-str = urlread(fullURLmetadata);
+fumd = urlread(fullURLmetadata);
 % takes the data from the metadata txt online and turns it to str (a BIG string)
 % note : may be able to use the institution names to break data into lines
 
@@ -15,10 +15,27 @@ i = strfind(str, 'kordi');
 j = strfind(str, 'meds');
 k = strfind(str, 'nmdis');
 
+asize = size(a);
+bsize = size(b);
+csize = size(c);
+dsize = size(d);
+esize = size(e);
+fsize = size(f);
+gsize = size(g);
+hsize = size(h);
+isize = size(i);
+jsize = size(j);
+ksize = size(k);
+
+alinecharnum = a(2) - a(1);
+for i = 1:asize(2) 
+aomlmd = fumd(a(i))
+end
+
 fumdsize = size(fullURLmetadata); %gives two doubles: 1 and end num
 
-for i = 1:fumdsize(2)
 
-    fumdnwln = [fullURLmetadata(1:) char newline fullURLmetadata(i:fumdsize(2))]
+for i = 1:fumdsize(2)
+aomlmd = fumd(a(1) : a(
   end 
  end

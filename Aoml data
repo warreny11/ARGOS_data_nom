@@ -1,0 +1,16 @@
+fullURL = ['ftp://ftp.ifremer.fr/ifremer/argo/ar_index_this_week_meta.txt'];
+data = urlread(fullURL);
+% takes the data from the metadata txt online and turns it to str (a BIG string)
+% note : may be able to use the institution names to break data into lines
+datasize = size(fullURL); %gives two doubles: 1 and end num
+
+s = struct; %creates structure to store variables
+
+s.a = strfind(data, 'aoml');
+asize = size(s.a);
+
+for i = 1:asize(2)
+
+aomldat(i) = data(s.a(i));%when I do this, I get 854 "a"'s and it's not good :(
+
+end

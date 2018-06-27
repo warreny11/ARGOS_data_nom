@@ -2,7 +2,7 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
 	<name>KmlFile</name>
-	<Style id="bob">
+	<Style id="Ahi Trajectory">
 		<LineStyle>
 			<color>ff0080ff</color>
 			<width>10</width>
@@ -12,10 +12,10 @@
 		</PolyStyle>
 	</Style>
 	<Placemark>
-		<name>bob</name>
-		<description>Orange line (10 pixels wide), height tracks terrain</description>
+		<name>Ahi Trajectory</name>
+		<description>Ahi Trajectory</description>
 
-		<styleUrl>#thickOrangeLine</styleUrl>
+		<styleUrl>#Trajectory</styleUrl>
 		<gx:balloonVisibility>1</gx:balloonVisibility>
 		<LineString>
 	     <tessellate>1</tessellate>

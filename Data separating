@@ -1,8 +1,9 @@
 fid = fopen("testing123.csv");
 
 while ~feof(fid)
-
+    
     tline = fgetl(fid);
+   
     
     idx_1 = find(tline == '=');%%these indexes find the positions of the = sign and the , giving me positions for ref
     idx_2 = find(tline == ',');
@@ -13,16 +14,21 @@ while ~feof(fid)
     if tnum == 1
     tval1str = tline(idx_1 + 2 : idx_2 - 1);
     tval1 = str2num(tval1str);
-
+    continue
+    
     elseif tnum == 2 
-    tval2 = tline(idx_1 + 2 : idx_2 - 1);
+    tval2str = tline(idx_1 + 2 : idx_2 - 1);
     tval2 = str2num(tval2str);
+    continue
     
     elseif tnum == 3 
-    tval3 = tline(idx_1 + 2 : idx_2 - 1);
+    tval3str = tline(idx_1 + 2 : idx_2 - 1);
     tval3 = str2num(tval3str);
+    continue
     
-    else tnum > 3
+    elseif tnum > 3
+    A = [];
+    continue
     
     end
     

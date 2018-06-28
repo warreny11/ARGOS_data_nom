@@ -1,0 +1,19 @@
+
+filename = '20180626_prof.nc';
+vardata = ncread(filename,longitude);
+
+% takes the data from the metadata txt online and turns it into datafile, timeout after 10 sec to prevent crash
+% note : may be able to use the institution names to break data into lines
+
+a = find(tline == 'aoml');
+ M = dlmread('filename.txt', ' ', 2, 0)
+s = struct; %creates structure to store variables
+
+s.a = strfind(data, 'aoml');
+asize = size(s.a);
+
+for i = 1:asize(2)
+
+aomldat(i) = data(s.a(i) : );%when I do this, I get 854 "a"'s and it's not good :(
+
+end

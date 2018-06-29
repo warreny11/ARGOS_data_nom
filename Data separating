@@ -1,10 +1,30 @@
 
 sed -n '1p'  test1.txt > happycamper11.txt
 awk -F',' '{print $0}' happycamper11.txt > happycamper11.txt
+for 
+
 awk -F',' '$1~/(T2)/ {print $1}' data1.txt
 
+{
+if (x % 2 == 0)
+   { print "x is even"}
+else
+   { print "x is odd"}
 
+}
+    if (getline > 0) 
+    do {
+        print $0
+        i++
+    } while (i <= 10)
+}
 
+for every row in file:
+{
+for every field in file:
+{ 
+tagsamp 
+split ($field, tagsamp, "=" )
 
 
 

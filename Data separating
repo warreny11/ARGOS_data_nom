@@ -1,11 +1,30 @@
-fid = fopen("testing123.csv");
-while ~feof(fid)
-  
+awk -F',' '$1~/(T2)/ {print $1}' data1.txt
 
+
+
+
+
+
+
+Matlab Stuff >
+
+
+fileID = fopen("testing1.1.csv");
+fprintf(fileID,'%d %4.4f\n');
+fclose(fileID);
+
+fid = fopen("testing1.1.csv");
+tline = fgetl(fid)
+tags = strsplit(tline,',')
+
+
+while ~feof(fid)
 
 tline = fgetl(fid)
-idx_1 = find(tline == 'T')
-idx_2 = find(tline == ',')
+data = strsplit(tline,',')
+
+end
+
 tm = tline(idx_1 + 1 : idx_1 + 2)
 tnum = str2double(tm)
     

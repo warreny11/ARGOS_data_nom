@@ -16,11 +16,13 @@ for every field in row
 {
 split($field, tagsamp, "=")
 
-
+awk -F, '
 
 
 sed -n '1p'  test1.txt > happycamper11.txt
-awk -F',' '{print $0}' happycamper11.txt > happycamper11.txt
+awk -F',' '{print $0}' test1.txt > test1.txt
+awk -F',' '{print split($0, arraytest, "=")}' test1.txt
+
 for 
 
 awk -F',' '$1~/(T2)/ {print $1}' data1.txt

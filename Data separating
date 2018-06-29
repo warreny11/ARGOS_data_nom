@@ -1,3 +1,6 @@
+
+sed -n '1p'  test1.txt > happycamper11.txt
+awk -F',' '{print $0}' happycamper11.txt > happycamper11.txt
 awk -F',' '$1~/(T2)/ {print $1}' data1.txt
 
 

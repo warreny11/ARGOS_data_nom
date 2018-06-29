@@ -8,7 +8,13 @@ tag["T3"]
    tag[rowdata]++}}
 END{ for (rowdata) print 
 
-
+BEGIN {FS = ","
+find number of elements in tagline
+for every row in file
+{
+for every field in row
+{
+split($field, tagsamp, "=")
 
 
 

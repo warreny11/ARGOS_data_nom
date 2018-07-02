@@ -1,4 +1,4 @@
-awk BEGIN {
+awk 'BEGIN {
     FPAT = "([^,]+)|(\"[^\"]+\")"
 }
 
@@ -7,7 +7,7 @@ awk BEGIN {
     for (i = 1; i <= NF; i++) {
         printf("$%d = <%s>\n", i, $i)
     }
-} data1.txt
+}' data1.txt
 
 
 

@@ -5,14 +5,15 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) { #for every row in file
-    print(split($i, w, ",") #split row by comma find out how many commas
+        print(split($i, w, ",")) #split row by comma find out how many commas
     
-   print(split($i, a, "=")) #split field by eq sign
-   print(a[i]) #array a has tags and data
-   if (i%2 == 0) {
-   print b = a[i] #array b has just data
-   }
+                print(split($i, a, "=")) #split field by eq sign
+                print(a[i]) #array a has tags and data
+                    if (i%2 == 0) {
+                    print b = a[i] #array b has just data
+        }
          
+    }
 }
     
 }' data1.txt

@@ -5,8 +5,8 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) {
-   print(split($1, a, "=")) #print split 
-   print(a) #print array a for test
+   (split($1, a, "=")) #print split 
+   print(a[i]) #print array a for test
          
 }
     

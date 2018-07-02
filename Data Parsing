@@ -6,14 +6,24 @@ awk 'BEGIN {
     print "NF = ", NF
     for (i = 1; i <= NF; i++) {
           printf("$%d = <%s>\n", i, $i)
-        if (substr($i, 1, 1) == "=") {
-    len = length($i)
-    printf($i = substr($i, 1, len))    # Get text after equal sign / empty set
+        if (substr($i, 1, 4) == "=") {
+    print len = length($i)
+    printf($i = substr($i, 1, len - 2))    # Get text after equal sign / empty set
 }
     }
 }' data1.txt
 
+awk 'BEGIN {
+    FS = ","
+}
 
+{
+        if (substr($i, 1, 4) == "=") {
+    print len = length($i)
+    printf($i = substr($i, 1, len - 2))    # Get text after equal sign / empty set
+}
+    
+}' data1.txt
 
 
 

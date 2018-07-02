@@ -8,7 +8,7 @@ awk 'BEGIN {
           printf("$%d = <%s>\n", i, $i)
         if (substr($i, 1, 1) == "=") {
     len = length($i)
-    printf($i = substr($i, 3, len))    # Get text within the two quotes
+    printf($i = substr($i, 1, len))    # Get text after equal sign / empty set
 }
     }
 }' data1.txt

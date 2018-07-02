@@ -3,14 +3,14 @@ awk 'BEGIN {
 }
 
 {
-    print "NF = ", NF
+    
     for (i = 1; i <= NF; i++) {
-          printf("$%d = <%s>\n", i, $i)
+          
          
         if (substr($i, 3, 1) == "=") {
-    print len = length($i)
-    print bob = index($i, "=")
-    printf($i = substr($i, bob, bob:len))    # Get text after equal sign / empty set
+    len = length($i)
+    bob = index($i, "=")
+    print($i = substr($i, bob +1 , len-bob))    # Get text after equal sign / empty set
 }
     }
 }' data1.txt

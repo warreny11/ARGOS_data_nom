@@ -5,8 +5,8 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) { #for every row in file
-        print(index($i, ","))#split row by comma find out how many commas
-        print(rr = length($i) / index)
+        print(w=index($i, ","))#split row by comma find out how many commas
+        print(rr = length($i) / w)
             for (j = 1; j <=rr; j++) #for every less than num of commas
                 (split($i, a, "=")) #split field by eq sign
                 (a[i]) #array a has tags and data

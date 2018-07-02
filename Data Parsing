@@ -9,7 +9,8 @@ awk 'BEGIN {
          
         if (substr($i, 3, 1) == "=") {
     print len = length($i)
-    printf($i = substr($i, 1, len - 2))    # Get text after equal sign / empty set
+    print bob = index($i, "=")
+    printf($i = substr($i, bob, bob:len))    # Get text after equal sign / empty set
 }
     }
 }' data1.txt

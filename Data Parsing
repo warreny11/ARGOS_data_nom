@@ -18,6 +18,16 @@ split($field, tagsamp, "=")
 
 awk -F, '
 
+expand mail-list | awk '{ if (x < length($0)) x = length($0) }
+                   END { print "maximum line length is " x }'
+
+awk 'END { print NR }' mail-data
+
+awk 'NF > 0' mail-data
+
+awk '{ if (length($0) > max) max = length($0) }
+     END { print max }' data
+
 
 sed -n '1p'  test1.txt > happycamper11.txt
 awk -F',' '{print $0}' test1.txt > test1.txt

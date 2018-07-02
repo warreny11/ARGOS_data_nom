@@ -5,12 +5,9 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) {
-          
+   print(split($1, a, "=") #seperate data at eq sign
+   print(a) #print array a for test
          
-        if (substr($i, 3, 1) == "=") {
-    len = length($i)
-    bob = index($i, "=")
-    print($i = substr($i, bob +1 , len-bob))    # Get text after equal sign / empty set
 }
     }
 }' data1.txt

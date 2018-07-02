@@ -54,47 +54,4 @@ split ($field, tagsamp, "=" )
 
 
 
-Matlab Stuff >
 
-
-fileID = fopen("testing1.1.csv");
-fprintf(fileID,'%d %4.4f\n');
-fclose(fileID);
-
-fid = fopen("testing1.1.csv");
-tline = fgetl(fid)
-tags = strsplit(tline,',')
-
-
-while ~feof(fid)
-
-tline = fgetl(fid)
-data = strsplit(tline,',')
-
-end
-
-tm = tline(idx_1 + 1 : idx_1 + 2)
-tnum = str2double(tm)
-    
-    if tnum == 1
-    tval1str = tline(idx_1 + 4 : idx_2 - 1);
-    tval1 = str2num(tval1str);
-    continue
-    
-    elseif tnum == 2 
-    tval2str = tline(idx_1 + 4 : idx_2 - 1);
-    tval2 = str2num(tval2str);
-    continue
-    
-    elseif tnum == 3 
-    tval3str = tline(idx_1 + 4 : idx_2 - 1);
-    tval3 = str2num(tval3str);
-    continue
-    
-    
-    end
-    
-end
-
-A = [tval1 tval2 tval3]
-   

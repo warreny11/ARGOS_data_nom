@@ -5,7 +5,8 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) { #for every row in file
-    for (
+    number of commas
+    for (j = 1; j <=number of commas; j++)
    print(split($1, a, "=")) #split field by eq sign
    print(a[i]) #array a has tags and data
    if (i%2 == 0) {

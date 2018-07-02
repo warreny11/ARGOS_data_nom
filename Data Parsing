@@ -6,7 +6,7 @@ awk 'BEGIN {
     
     for (i = 1; i <= NF; i++) {
    (split($1, a, "=")) #print split 
-   print(a[i]) #print array a for test
+   (a[i]) #print array a for test
    if (i%2 == 0) {
    print b = a[i]
    }

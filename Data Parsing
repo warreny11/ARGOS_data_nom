@@ -5,9 +5,9 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) {
-   print(split($1, a, "=") #seperate data at eq sign
+   print(split($1, a, "=")) #print split 
    print(a) #print array a for test
          
 }
-    }
+    
 }' data1.txt

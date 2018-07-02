@@ -14,7 +14,7 @@ awk 'BEGIN {
         }
          
     }
-}
+
     
 }' data1.txt
 

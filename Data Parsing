@@ -5,8 +5,8 @@ awk 'BEGIN {
 {
     
     for (i = 1; i <= NF; i++) { #for every row in file
-    print(split($i, w, ",")
-    for (j = 1; j <=rr; j++)
+    print(split($i, w, ",") #split row by comma find out how many commas
+    
    print(split($i, a, "=")) #split field by eq sign
    print(a[i]) #array a has tags and data
    if (i%2 == 0) {
@@ -16,3 +16,5 @@ awk 'BEGIN {
 }
     
 }' data1.txt
+
+for (j = 1; j <=rr; j++) #for every less than num of commas

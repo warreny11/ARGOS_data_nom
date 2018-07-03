@@ -4,40 +4,39 @@ BEGIN {
 
 }
 
-{c = NF  
+{c = NF
+   
+while (FNR==NR) {
 
-
-for (i = 1; i <= c; i++) {
-print(X[$i] = $i)
-print("-----")
-
+for (j = 1; j <= c; j++) {
+print(X[j] = $j)
 
 }
-}
-
-BEGIN {
-    FS = ","
- ORS = ","
+print(b =length(X))
+next
 }
 
 
-{   c = NF - 1 
-    
+
+
+{ 
+
+c = NF - 1 
+     print("----+")
+
     for (i = 1; i <= c; i++) { #for every field in line
-      
+      print("----")
  
               (split($i, a, "=")) #split field by eq sign
-
+	
                 
-
+if (X[1-b] == a[1])
                     
                      print a[2] #a[2] has just data
 
         }
          
-    
+    }
 
 
 }
-
-

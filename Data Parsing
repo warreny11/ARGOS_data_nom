@@ -1,6 +1,25 @@
+
+BEGIN {
+ FS = ","
+
+}
+
+{c = NF  
+
+
+for (i = 1; i <= c; i++) {
+print(X[$i] = $i)
+print("-----")
+
+
+}
+}
+
 BEGIN {
     FS = ","
+ ORS = ","
 }
+
 
 {   c = NF - 1 
     
@@ -8,10 +27,11 @@ BEGIN {
       
  
               (split($i, a, "=")) #split field by eq sign
+
                 
 
                     
-                     print(b = a[2]) #array b has just data
+                     print a[2] #a[2] has just data
 
         }
          

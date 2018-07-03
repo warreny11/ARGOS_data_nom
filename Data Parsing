@@ -1,4 +1,5 @@
 
+
 BEGIN {
  FS = ","
 
@@ -9,10 +10,11 @@ BEGIN {
 while (FNR==NR) {
 
 for (j = 1; j <= c; j++) {
-print(X[j] = $j)
+X[$j] = $j
 
 }
-print(b =length(X))
+b=length(X)
+
 next
 }
 
@@ -22,17 +24,19 @@ next
 { 
 
 c = NF - 1 
-     print("----+")
+     
 
     for (i = 1; i <= c; i++) { #for every field in line
-      print("----")
+      
  
               (split($i, a, "=")) #split field by eq sign
-	
+
+
                 
-if (X[1-b] == a[1])
+if (a[1] in X) {
                     
                      print a[2] #a[2] has just data
+}
 
         }
          

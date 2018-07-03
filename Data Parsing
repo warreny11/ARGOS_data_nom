@@ -1,21 +1,23 @@
-awk 'BEGIN {
+BEGIN {
     FS = ","
 }
 
-{
+{   c = NF - 1 
     
-    for (i = 1; i <= NF; i++) { #for every row in file
-      print $3
-            for (j = 1; j <=rr; j++) #for every less than num of commas
-                (split($i, a, "=")) #split field by eq sign
-                (a[i]) #array a has tags and data
-                    if (i%2 == 0) {
-                    print b = a[i] #array b has just data
+    for (i = 1; i <= c; i++) { #for every field in line
+      
+ 
+              (split($i, a, "=")) #split field by eq sign
+                
+
+                    
+                     print(b = a[2]) #array b has just data
+
         }
          
-    }
-
     
-}' data1.txt
+
+
+}
 
 

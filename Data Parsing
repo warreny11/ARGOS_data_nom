@@ -1,46 +1,36 @@
 
-
-BEGIN {
+BEGIN { 
  FS = ","
-
-}
-
+ ORS = "\n"
+ OFS = ","
+      }
 {c = NF
-   
 while (FNR==NR) {
-
 for (j = 1; j <= c; j++) {
-X[$j] = $j
-
+X[$j]= ""
 }
-b=length(X)
-
 next
 }
-
-
-
-
-{ 
-
-c = NF - 1 
-     
-
-    for (i = 1; i <= c; i++) { #for every field in line
-      
- 
-              (split($i, a, "=")) #split field by eq sign
-
-
-                
-if (a[1] in X) {
-                    
-                     print a[2] #a[2] has just data
+{c = NF - 1 
+     if (FNR==1) {
+			for (tag in X) {
+			printf("%s,", tag)}
+			printf("\n")
+		 }
+for (i = 1; i <= c; i++) { #for every field in line
+	(split($i, a, "=")) #split field by eq sign
+	if(a[1] in X) {
+		X[a[1]]=a[2]	
+	}
 }
-
-        }
-         
-    }
-
-
+for (tag in X) { 
+if(X[tag]!="") {
+	printf("%s,", X[tag]) #prints value of X[tag]
+	      } else {
+	printf(",")#prints empty space when X[tag] is empty 
+     }
+X[tag] = ""
 }
+printf("\n")      
+}
+} 

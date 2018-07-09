@@ -1,6 +1,9 @@
 ncid = netcdf.open("1900728_traj.nc");
 ncdisp(ncid)
 
+ncstruct = ncinfo("1900728_traj.nc");
+
+
 filename = '20180626_prof.nc';
 vardata = ncread(filename,longitude);
 

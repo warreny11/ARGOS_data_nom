@@ -1,3 +1,4 @@
+
 BEGIN { #order of files piping: tags you want, database/legend, raw data
 FS = ",";
 ORS = "\n";
@@ -29,25 +30,27 @@ OFS = ",";
                 orderedtags[NR] = $j
 
 				printf("%s,", Tag);
-			    print("NF = " NF)
-                print("NR = " NR)
+			    #print("NR = " NR)
             
             }
             
             numberotags = NR
-            printf("\n")
+            
+                
+            
+            
         }
+        
     
     { if (debug==1) {
         print("filenum2 = " filenum) ;   
         }
         if(filenum==2) {
-
+        
         Tag_name = "Tag"
         Scalar_name = "Scalar"
         Offset_name = "Offset"
 
-    
         if (FNR==1) { #if first line of taglegend 
             for (j = 1; j <= NF; j++) {
                 elements[$j]= j
@@ -98,6 +101,9 @@ OFS = ",";
         }
     }
         if (filenum==3){
+            if (FNR==1){
+                printf("\n")
+                }
             if (debug==1) {
                 print("filenum3 = " filenum)
             }
@@ -136,3 +142,15 @@ OFS = ",";
     
             }
     }   
+    
+        
+	
+    
+    
+
+
+       
+
+          
+
+ 

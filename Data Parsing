@@ -1,36 +1,171 @@
+BEGIN {                                                                   # order of files piping: tags you want, database/legend, raw data
+FS = ",";
+ORS = "\n";
+OFS = ",";
+ filenum = 1;
+ debug = 1;                                                               # debug: set to 1 to get all printouts
+ 
+}	
+	{ 
+      lastNRminusFNR = NRminusFNR;                                        # establishes vars for moving through diff files
+      NRminusFNR = NR - FNR;
+        if (lastNRminusFNR != NRminusFNR){
+            filenum++;
+            if (debug==1) {
+                print("filenum = " filenum);
+            }
+        }
+     
+      
+      
+        
+      
+        if (debug==1) {
+            print("filenum1 = " filenum);
+        }
+	    if(filenum==1) {
 
-BEGIN { 
- FS = ","
- ORS = "\n"
- OFS = ","
-      }
-{c = NF
-while (FNR==NR) {
-for (j = 1; j <= c; j++) {
-X[$j]= ""
-}
-next
-}
-{c = NF - 1 
-     if (FNR==1) {
-			for (tag in X) {
-			printf("%s,", tag)}
-			printf("\n")
-		 }
-for (i = 1; i <= c; i++) { #for every field in line
-	(split($i, a, "=")) #split field by eq sign
-	if(a[1] in X) {
-		X[a[1]]=a[2]	
-	}
-}
-for (tag in X) { 
-if(X[tag]!="") {
-	printf("%s,", X[tag]) #prints value of X[tag]
-	      } else {
-	printf(",")#prints empty space when X[tag] is empty 
-     }
-X[tag] = ""
-}
-printf("\n")      
-}
-} 
+			for (j = 1; j <= NF; j++) {                                   # this is the tag file (for every field in tagfile)
+                
+                Tag = $j                                                 # assigning tags to var tag
+                orderedtags[j] = $j;                                      # adding tags to array ordered tags
+                 
+                if (debug==1) {
+                    print("ordered tag = " orderedtags[j]);
+                    print("jmax = " jmax)
+                    print("NF = " NF);
+                    print("j = " j)
+                }
+				X[Tag]= ""
+                printf("%s,", Tag);
+               
+            
+			}
+                numberotags = NF
+			    printf("\n");
+                
+                
+		    }
+            
+            
+        }
+    { if (debug==1) {
+        print("filenum2 = " filenum) 
+        print("numberotags = " numberotags)
+        }
+        if(filenum==2) {
+        FS =","
+        Tag_name = "Tag";
+        Scalar_name = "Scalar";
+        Offset_name = "Offset";
+
+    
+        if (FNR==1) {                                                     # if first line of taglegend 
+            for (j = 1; j <= NF; j++) {
+                elements[$j]= j;
+                if (debug==1) {
+                    print("j="  elements[$j]);
+                    print("$j="  $j);
+                }
+            }
+        if (Tag_name in elements) {     
+            column_tag = elements[Tag_name];
+            if (debug==1) {print("c = ", column_tag)}
+        }
+        else{
+                print(Tag_name + " not found")
+            }
+        if (Scalar_name in elements){
+            column_scalar = elements[Scalar_name]
+            if (debug==1) {print("s = ", column_scalar)}
+            }
+        else{
+                print(Scalar_name + " not found")
+            }
+        if (Offset_name in elements){
+            column_offset = elements[Offset_name] 
+            if (debug==1) {print("o = ", column_offset)}
+            }
+        else{
+                print(Offset_name + " not found")
+        }
+        }
+        
+        else {
+            Tag = $column_tag
+            if (debug==1){
+                print("$column_tag = " Tag)
+            }
+            Scalar[Tag] = $column_scalar
+            Offset[Tag] = $column_offset
+                       
+             if (debug==1){
+            print("Scalar = " Scalar[Tag])
+            print("Offset = " Offset[Tag])
+             }
+        
+        }
+        
+
+        }
+    }
+       { if (filenum==3){
+            
+            if (debug==1) {
+                print("filenum3 = " filenum)
+            }
+		    for (i = 1; i <= NF; i++) {                                   # for every field in line
+			    (split($i, a, "="))                                       # split field by eq sign
+				    if(a[1] in X) {
+				    	X[a[1]]=a[2]
+                    if (debug==1) {
+                        print("X[a[1]] = " X[a[1]])
+                    }           
+				    }	
+		    }
+        for (tn = 1; tn <= numberotags; tn++) {
+            Tag = orderedtags[tn] 
+                    if((Tag in X)&&(X[Tag]!="")) {
+                        if (debug==1){
+                            print("tn = "tn)
+                            print("tag = " Tag)
+                            print("oldX= " X[Tag])
+                            print("Scalar[Tag]= " Scalar[Tag])
+                            print("Offset[Tag]= " Offset[Tag])
+                        }
+
+                        X[Tag] = X[Tag]*Scalar[Tag]+Offset[Tag]
+                        if (debug==1){
+                            print("newX= " X[Tag])
+                        }
+                        printf("%s,", X[Tag])                             # prints value of X[tag]
+                    } 
+                    else {
+                        printf(",")                                       # prints empty space when X[tag] is empty 
+                    }
+                    X[Tag] = ""
+			}
+        
+		
+		    
+		    printf("\n")     
+            
+    
+
+            
+    
+            }
+       }   
+    
+        
+	
+    
+    
+
+
+       
+
+          
+
+        
+

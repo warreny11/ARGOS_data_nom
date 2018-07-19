@@ -1,6 +1,6 @@
 
 
-B
+
 BEGIN { 
 
         Tag_name = "Tag"
@@ -51,7 +51,7 @@ OFS = ","
                     
             }
          
-        }   numberotags = FNR
+        }   numberotags = FNR-1
          printf("%s,",numberotags)
         
 

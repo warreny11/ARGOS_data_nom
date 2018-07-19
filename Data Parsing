@@ -1,4 +1,3 @@
-#hello
 BEGIN { #order of files piping: tags you want, database/legend, raw data
 FS = ",";
 ORS = "\n";
@@ -16,7 +15,7 @@ OFS = ",";
             }
         }
      
-      
+    
      
         c = NF-1;
       
@@ -27,14 +26,15 @@ OFS = ",";
 			for (j = 1; j <= c; j++) {
                 Tag = $j
 				X[Tag]= ""
-                orderedtags[j] = $j
+                orderedtags[NR] = $j
 
 				printf("%s,", Tag);
-			    
+			    print("NF = " NF)
+                print("NR = " NR)
             
             }
             
-            numberotags = NF
+            numberotags = NR
             printf("\n")
         }
     
@@ -101,7 +101,7 @@ OFS = ",";
             if (debug==1) {
                 print("filenum3 = " filenum)
             }
-		    for (i = 1; i <= c; i++) { #for every field in line
+		    for (i = 1; i <=  NF; i++) { #for every field in line
 			    (split($i, a, "=")) #split field by eq sign
 				    if(a[1] in X) {
 				    	X[a[1]]=a[2]	
@@ -134,6 +134,5 @@ OFS = ",";
 		    printf("\n")     
          
     
-            }   
-    }
-        
+            }
+    }   

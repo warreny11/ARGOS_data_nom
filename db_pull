@@ -1,4 +1,6 @@
 
+
+B
 BEGIN { 
 
         Tag_name = "Tag"
@@ -27,34 +29,43 @@ OFS = ","
      
       
       
-        c = NF-1
+        
       
         if (debug==1) {
             print("filenum1 = " filenum)
         }
-      if(filenum==1) {
+    if(filenum==2) {
+        c = NF-1
       for (j = 1; j <= c; j++) {
-                Tag = $j
+        Tag = $j
         X[Tag]= ""
-        orderedtags[NR] = $j
-
-		printf("%s,", Tag);
-
-      }
-      
-      numberotags = NR
+        orderedtags[FNR] = $j
         
-            
+        
+            if (Tag in Description) {
+            unitsText = ""
+                if (Units[Tag] != ""){
+                unitsText = "(" Units[Tag] ") "
+                }
+            printf("%s %s[%s],", Description[Tag], unitsText, Tag)
+                    
+            }
+         
+        }   numberotags = FNR
+         printf("%s,",numberotags)
+        
+
+		#printf("%s,", Tag);
         }
     { if (debug==1) {
         print("filenum2 = " filenum)    
         }
-        if(filenum==2) {
+        if(filenum==1) {
 
 
     
         if (FNR==1) { #if first line of taglegend 
-            for (j = 1; j <= NF; j++) {
+            for (j = 1; j <= NF-1; j++) {
                 elements[$j]= j
                 if (debug==1) {
                     print("j="  elements[$j])
@@ -122,23 +133,12 @@ OFS = ","
     }
 
     if (filenum==3){
-    if (FNR==1){
-          for (Tag in Description) {
-          unitsText = ""
-          if (Units[Tag] != ""){
-          unitsText = "(" Units[Tag] ") "
-            }
-        printf("%s %s[%s],", Description[Tag], unitsText, Tag)
-                
-          }
-          printf("\n")
-}
-
-
+    if(FNR==1){print("\n")}    
+    
     if (debug==1) {
-                print("filenum3 = " filenum)
+         print("filenum3 = " filenum)
             }
-        for (i = 1; i <= c; i++) { #for every field in line
+        for (i = 1; i <= NF; i++) { #for every field in line
           (split($i, a, "=")) #split field by eq sign
             if(a[1] in X) {
               if(a[1] == "MSG")
@@ -147,20 +147,21 @@ OFS = ","
               }else{
                 X[a[1]] = a[2]  
               }
-            } 
+            }
         }
         
         
-    
         msg = ""
-       for (tn = 1; tn <= numberotags; tn++) {
+            for (tn = 1; tn <= numberotags; tn++) {
                 Tag = orderedtags[tn] 
                 if((Tag in X)&&(X[Tag]!="")) {
                     if (debug==1){
                       print("tag = " Tag)
                       print("oldX= " X[Tag])
                       print("Scalar[Tag]= " Scalar[Tag])
+                      print("Offset[Tag]= " Offset[Tag])
                     }
+                    
 
                     ###############################
                     # Start special rules section #
@@ -170,7 +171,7 @@ OFS = ","
                       ms512 = 512 * sprintf("%d", "0x" substr(X[Tag], 0, length(X[Tag])-2))
                       ms16 = 16 *   sprintf("%d", "0x" substr(X[Tag], length(X[Tag])-1, 2))
                       printf("%f,", (ms512 + ms16) / 1000)
-                      #sprintf("'512 0x%s + 16 0x%s'", substr(X[Tag], 0, length(X[Tag])-2), substr(X[Tag], length(X[Tag])-1, 2))
+                      sprintf("'512 0x%s + 16 0x%s'", substr(X[Tag], 0, length(X[Tag])-2), substr(X[Tag], length(X[Tag])-1, 2))
                     }
                     
                     
@@ -191,7 +192,9 @@ OFS = ","
                     {
                       X[Tag] = sprintf("%d", "0x" X[Tag]) # convert hex to decimal
                       if (debug==1){print("newXdec= " X[Tag])}
+
                       X[Tag] = (X[Tag] * Scalar[Tag]) + Offset[Tag]
+                      
                       if (debug==1){print("newX= " X[Tag])}
                       printf("%s,", X[Tag]) #prints value of X[tag]
                     }
@@ -204,12 +207,12 @@ OFS = ","
       }
       printf("\n")
       if (debug==1){printf("\n")} # extra line break improves readability of output
-            
-    
-
-            
+                  
     
             }   
     }
         
   
+    
+    
+

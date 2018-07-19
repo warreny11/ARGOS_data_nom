@@ -1,3 +1,4 @@
+
 BEGIN { #order of files piping: tags you want, database/legend, raw data
 FS = ",";
 ORS = "\n";
@@ -17,7 +18,7 @@ OFS = ",";
      
       
      
-        c = NF;
+        c = NF-1;
       
         if (debug==1) {
             print("filenum1 = " filenum)
@@ -26,21 +27,17 @@ OFS = ",";
 			for (j = 1; j <= c; j++) {
                 Tag = $j
 				X[Tag]= ""
-			}
-			
-	    c = NF - 1 ;
-        
-        
-    	    if (FNR==1) {
-			    for (Tag in X) {
+                orderedtags[j] = $j
+
 				printf("%s,", Tag);
-                
-			    }
-			    printf("\n");
+			    
             
-		    }
+            }
             
+            numberotags = NF
+            printf("\n")
         }
+    
     { if (debug==1) {
         print("filenum2 = " filenum) ;   
         }
@@ -113,17 +110,19 @@ OFS = ",";
         
         
 		
-		    for (Tag in X) { 
-			    if(X[Tag]!="") {
+		    for (tn = 1; tn <= numberotags; tn++) {
+                Tag = orderedtags[tn] 
+                if((Tag in X)&&(X[Tag]!="")) {
                     if (debug==1){
-                    print("tag = " Tag)
-                    print("oldX= " X[Tag])
-                    print("Scalar[Tag]= " Scalar[Tag])
+                        print("tag = " Tag)
+                        print("oldX= " X[Tag])
+                        print("Scalar[Tag]= " Scalar[Tag])
+                        print("Offset[Tag]= " Offset[Tag])
                     }
 
                     X[Tag] = X[Tag]*Scalar[Tag]+Offset[Tag]
                     if (debug==1){
-                    print("newX= " X[Tag])
+                        print("newX= " X[Tag])
                     }
 				    printf("%s,", X[Tag]) #prints value of X[tag]
 			    } 
@@ -133,23 +132,8 @@ OFS = ",";
 			    X[Tag] = ""
 			}
 		    printf("\n")     
-            
-    
-
-            
+         
     
             }   
     }
-    
         
-	
-    
-    
-
-
-       
-
-          
-
-        
-

@@ -1,0 +1,215 @@
+
+BEGIN { 
+
+        Tag_name = "Tag"
+        Scalar_name = "Scalar"
+        Offset_name = "Offset"
+        Units_name = "Units"
+        Description_name = "Description"
+
+        
+        
+FS = ","
+ORS = "\n"
+OFS = ","
+ filenum = 1
+ debug = 0
+} 
+  { 
+      lastNRminusFNR = NRminusFNR
+      NRminusFNR = NR - FNR
+        if (lastNRminusFNR != NRminusFNR){
+            filenum++
+            if (debug==1) {
+                print("filenum = " filenum)
+            }
+        }
+     
+      
+      
+        c = NF-1
+      
+        if (debug==1) {
+            print("filenum1 = " filenum)
+        }
+      if(filenum==1) {
+      for (j = 1; j <= c; j++) {
+                Tag = $j
+        X[Tag]= ""
+        orderedtags[NR] = $j
+
+		printf("%s,", Tag);
+
+      }
+      
+      numberotags = NR
+        
+            
+        }
+    { if (debug==1) {
+        print("filenum2 = " filenum)    
+        }
+        if(filenum==2) {
+
+
+    
+        if (FNR==1) { #if first line of taglegend 
+            for (j = 1; j <= NF; j++) {
+                elements[$j]= j
+                if (debug==1) {
+                    print("j="  elements[$j])
+                    print("$j="  $j)
+                }
+            }
+        if (Tag_name in elements) {     
+            column_tag = elements[Tag_name]
+            if (debug==1) {print("c = ", column_tag)}
+        }
+        else{
+                print(Tag_name + " not found")
+            }
+        if (Scalar_name in elements){
+            column_scalar = elements[Scalar_name]
+            if (debug==1) {print("s = ", column_scalar)}
+            }
+        else{
+                print(Scalar_name + " not found")
+            }
+        if (Offset_name in elements){
+            column_offset = elements[Offset_name] 
+            if (debug==1) {print("o = ", column_offset)}
+            }
+        else{
+                print(Offset_name + " not found")
+        }
+        if (Units_name in elements){
+            column_units = elements[Units_name] 
+            if (debug==1) {print("u = ", column_units)}
+            }
+        else{
+                print(Units_name + " not found")
+        }
+        if (Description_name in elements){
+            column_description = elements[Description_name] 
+            if (debug==1) {print("d = ", column_description)}
+            }
+        else{
+                print(Description_name + " not found")
+        }
+        }
+        
+        else {
+            Tag = $column_tag
+            if (debug==1){
+                print("$column_tag = " Tag)
+            }
+            Scalar[Tag] = $column_scalar
+            Offset[Tag] = $column_offset
+            Units[Tag] = $column_units
+            Description[Tag] = $column_description
+                       
+             if (debug==1){
+            print("Scalar = " Scalar[Tag])
+            print("Offset = " Offset[Tag])
+            print("Units = " Units[Tag])
+            print("Description = " Description[Tag])
+             }
+        
+        }
+        
+
+        }
+    }
+
+    if (filenum==3){
+    if (FNR==1){
+          for (Tag in Description) {
+          unitsText = ""
+          if (Units[Tag] != ""){
+          unitsText = "(" Units[Tag] ") "
+            }
+        printf("%s %s[%s],", Description[Tag], unitsText, Tag)
+                
+          }
+          printf("\n")
+}
+
+
+    if (debug==1) {
+                print("filenum3 = " filenum)
+            }
+        for (i = 1; i <= c; i++) { #for every field in line
+          (split($i, a, "=")) #split field by eq sign
+            if(a[1] in X) {
+              if(a[1] == "MSG")
+              {
+                X[a[1]] = X[a[1]] "/" a[2]
+              }else{
+                X[a[1]] = a[2]  
+              }
+            } 
+        }
+        
+        
+    
+        msg = ""
+       for (tn = 1; tn <= numberotags; tn++) {
+                Tag = orderedtags[tn] 
+                if((Tag in X)&&(X[Tag]!="")) {
+                    if (debug==1){
+                      print("tag = " Tag)
+                      print("oldX= " X[Tag])
+                      print("Scalar[Tag]= " Scalar[Tag])
+                    }
+
+                    ###############################
+                    # Start special rules section #
+                    ###############################
+                    if(Tag == "TS"){
+                      # first 6 digits are 512ms in hex, last 2 digits are 16ms in hex
+                      ms512 = 512 * sprintf("%d", "0x" substr(X[Tag], 0, length(X[Tag])-2))
+                      ms16 = 16 *   sprintf("%d", "0x" substr(X[Tag], length(X[Tag])-1, 2))
+                      printf("%f,", (ms512 + ms16) / 1000)
+                      #sprintf("'512 0x%s + 16 0x%s'", substr(X[Tag], 0, length(X[Tag])-2), substr(X[Tag], length(X[Tag])-1, 2))
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    #############################
+                    # end special rules section #
+                    #############################
+                    
+                    else if(Units[Tag] == "text")
+                    {
+                      printf("'%s',", X[Tag])
+                    }
+                    else
+                    {
+                      X[Tag] = sprintf("%d", "0x" X[Tag]) # convert hex to decimal
+                      if (debug==1){print("newXdec= " X[Tag])}
+                      X[Tag] = (X[Tag] * Scalar[Tag]) + Offset[Tag]
+                      if (debug==1){print("newX= " X[Tag])}
+                      printf("%s,", X[Tag]) #prints value of X[tag]
+                    }
+                    
+          } 
+          else {
+            printf(",") # print empty space when X[tag] is empty 
+          }
+          X[Tag] = ""
+      }
+      printf("\n")
+      if (debug==1){printf("\n")} # extra line break improves readability of output
+            
+    
+
+            
+    
+            }   
+    }
+        
+  

@@ -1,6 +1,5 @@
 
-
-BEGIN { #db, tags, data
+BEGIN { 
 
         Tag_name = "Tag"
         Scalar_name = "Scalar"
@@ -126,7 +125,7 @@ OFS = ","
             }
          
         #}   
-        numberotags = FNR-1                                               # numberotags is FNR-1 because line 1 is counted (used to determine for loop later)
+        numberotags = FNR                                              # numberotags is FNR-1 because line 1 is counted (used to determine for loop later)
 
         }
        }
@@ -141,7 +140,7 @@ OFS = ","
         for (i = 1; i <= NF; i++) {                                       # for every field in line
           (split($i, a, "="))                                             # split field by eq sign
             if(a[1] in X) {
-              if(a[1] == "MSG")
+              if(a[1] == "MSxG")
               {
                 X[a[1]] = X[a[1]] "/" a[2]
               }else{
@@ -170,8 +169,8 @@ OFS = ","
                       # first 6 digits are 512ms in hex, last 2 digits are 16ms in hex
                       ms512 = 512 * sprintf("%d", "0x" substr(X[Tag], 0, length(X[Tag])-2))
                       ms16 = 16 *   sprintf("%d", "0x" substr(X[Tag], length(X[Tag])-1, 2))
-                      printf("%f,", (ms512 + ms16) / 1000)
-                      sprintf("'512 0x%s + 16 0x%s'", substr(X[Tag], 0, length(X[Tag])-2), substr(X[Tag], length(X[Tag])-1, 2))
+                      printf("%f,", (ms512 + ms16) / (1000 * 3600 * 24))
+                      #sprintf("'512 0x%s + 16 0x%s'", substr(X[Tag], 0, length(X[Tag])-2), substr(X[Tag], length(X[Tag])-1, 2))
                     }
                     
                     
@@ -213,6 +212,10 @@ OFS = ","
     }
         
   
+    
+    
+
+
     
     
 
